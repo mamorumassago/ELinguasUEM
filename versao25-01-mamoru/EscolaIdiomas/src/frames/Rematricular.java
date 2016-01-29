@@ -8,8 +8,12 @@ package frames;
 
 import dados.Aluno;
 import dados.Curso;
+import dados.Matricula;
+import dados.Mensalidade;
+import dados.Notas;
 import dados.Turma;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import persistencia.ControladorDePersistencia;
 
 /**
@@ -20,11 +24,20 @@ public class Rematricular extends javax.swing.JFrame {
 
     Aluno aluno;
     Turma turma;
+    Curso curso;
+    MenuPrincipal mp;
     /**
      * Creates new form Matricular
      */
     public Rematricular() {
         initComponents();
+        this.setLocationRelativeTo(null);
+    }
+    
+    public Rematricular(MenuPrincipal menu) {
+        initComponents();
+        mp = menu;
+        this.jTextField1.setEditable(false);
         this.setLocationRelativeTo(null);
     }
 
@@ -46,6 +59,10 @@ public class Rematricular extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,6 +101,10 @@ public class Rematricular extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("Ano:");
+
+        jLabel5.setText("Curso:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -98,24 +119,30 @@ public class Rematricular extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel2))
+                                .addComponent(jButton4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton5))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel5)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton3))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton2)))
-                                .addGap(0, 17, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton5)))
+                                        .addComponent(jButton2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton3)
+                                .addGap(0, 15, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -132,8 +159,14 @@ public class Rematricular extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(jButton2))
-                .addGap(40, 40, 40)
+                    .addComponent(jButton2)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
                     .addComponent(jButton5))
@@ -150,7 +183,73 @@ public class Rematricular extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        try{
+            if(jTextField1.getText().toString().equals("")){
+                JOptionPane.showMessageDialog(this,"Selecione um aluno.","Error",JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if(jTextField3.getText().toString().equals("")){
+                JOptionPane.showMessageDialog(this,"Selecione uma turma.","Error",JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if(jTextField2.getText().toString().equals("")){
+                JOptionPane.showMessageDialog(this,"Selecione o ano.","Error",JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            ControladorDePersistencia con = new ControladorDePersistencia();
+            ArrayList<Matricula> listaMatricula = con.carregaMatricula();
+            Boolean existe = false;
+            for(Matricula m:listaMatricula){
+                if(m.getIdAluno() == this.aluno.getId()){
+                    if(m.getIdTurma() == this.turma.getId()){
+                        existe = true;
+                    }
+                }
+            }
+            if(existe){
+                JOptionPane.showMessageDialog(this,"Aluno já está matriculado nessa turma.","Error",JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            Matricula mat1 = new Matricula(-1, aluno.getId(), turma.getId(), Integer.parseInt(jTextField2.getText().toString()), 1);
+            Mensalidade men1 = new Mensalidade(-1, aluno.getId(), turma.getId(), 0, curso.getMensalidade(), 1);
+            
+            con = new ControladorDePersistencia();
+            con.cadastraMatricula(mat1);
+            
+            con = new ControladorDePersistencia();
+            con.cadastraMensalidade(men1);
+            
+            con = new ControladorDePersistencia();
+            con.diminuiVaga(turma);
+            
+            con = new ControladorDePersistencia();
+            ArrayList<Matricula> lm = new ArrayList<Matricula>();
+            lm = con.carregaMatricula();
+            mat1.setId(lm.get(lm.size()-1).getId());
+            
+            Notas nota = new Notas();
+            nota.setId(-1);
+            nota.setIdmatricula(mat1.getId());
+            nota.setNota1(0);
+            nota.setNota2(0);
+            nota.setNota3(0);
+            nota.setNota4(0);
+            nota.setFaltas(0);
+            nota.setStatus(1);
+            
+            con = new ControladorDePersistencia();
+            con.cadastraNota(nota);
+            
+            JOptionPane.showMessageDialog(this,"Aluno rematriculado com sucesso.");
+            return;
+            
+        }
+        catch(Exception ex){
+            
+        }
+        mp.setEnabled(true);
         dispose();
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -170,9 +269,26 @@ public class Rematricular extends javax.swing.JFrame {
         turma = new Turma();
         turma.clonarTurma(t1);
         this.jTextField3.setText(turma.getNome());
+        setCurso();
     }
     
-    
+    public void setCurso(){
+        curso = new Curso();
+        try{
+            ControladorDePersistencia con = new ControladorDePersistencia();
+            ArrayList<Curso> lc = con.carregaCurso();
+            for(Curso c1:lc){
+                if(turma.getIdCurso() == c1.getId()){
+                    curso.clonarCurso(c1);
+                    this.jLabel5.setText(c1.getNome());
+                    return;
+                }
+            }
+        }
+        catch(Exception ex){
+            
+        }
+    }
     
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -224,8 +340,12 @@ public class Rematricular extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }
