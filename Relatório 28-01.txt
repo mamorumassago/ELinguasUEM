@@ -1,2 +1,0 @@
-Tarefas feitas: Consulta de aluno e consulta de turma para a interface de rematrícula. A função de rematricular também foi finalizada.
-Próximas tarefas: Funcionalidades relacionadas a gerencia de notas
