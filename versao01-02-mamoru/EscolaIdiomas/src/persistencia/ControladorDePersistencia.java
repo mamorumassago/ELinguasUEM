@@ -1155,6 +1155,26 @@ Todos usam a conexão connection (variável de conexão).
 
      }
     
+    public boolean alteraNotas(Notas notas){
+            try{
+                String query = "UPDATE notas SET nota1=?, nota2=?, nota3=?, nota4=? WHERE id=?";
+                PreparedStatement statement = this.connection.prepareStatement(query);
+                statement.setDouble(1, notas.getNota1());
+                statement.setDouble(2, notas.getNota2());
+                statement.setDouble(3, notas.getNota3());
+                statement.setDouble(4, notas.getNota4());
+                statement.setInt(5, notas.getId());
+                statement.executeUpdate();
+                statement.close();
+                connection.close();
+                return true;
+            }
+            catch(SQLException sqlex){
+                sqlex.printStackTrace();
+            }
+            return false;
+    }
+    
     public boolean alteraFalta(Notas notas){
             try{
                 String query = "UPDATE notas SET faltas=? WHERE id=?";

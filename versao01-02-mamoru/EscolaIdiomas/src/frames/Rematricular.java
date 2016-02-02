@@ -73,6 +73,10 @@ public class Rematricular extends javax.swing.JFrame {
 
         jLabel4.setText("Turma:");
 
+        jTextField1.setEditable(false);
+
+        jTextField3.setEditable(false);
+
         jButton2.setText("Buscar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -280,7 +284,7 @@ public class Rematricular extends javax.swing.JFrame {
             for(Curso c1:lc){
                 if(turma.getIdCurso() == c1.getId()){
                     curso.clonarCurso(c1);
-                    this.jLabel5.setText(c1.getNome());
+                    this.jLabel6.setText(c1.getNome());
                     return;
                 }
             }

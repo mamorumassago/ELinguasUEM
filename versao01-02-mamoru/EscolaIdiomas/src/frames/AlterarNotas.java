@@ -6,18 +6,66 @@
 
 package frames;
 
+import dados.Aluno;
+import dados.Curso;
+import dados.Matricula;
+import dados.Nivel;
+import dados.Notas;
+import dados.Turma;
+import javax.swing.JOptionPane;
+import persistencia.ControladorDePersistencia;
+
 /**
  *
  * @author Guilherme
  */
 public class AlterarNotas extends javax.swing.JFrame {
 
+    GerenciarNotas gn;
+    
+    Matricula matricula;
+    Aluno aluno;
+    Curso curso;
+    Nivel nivel;
+    Turma turma;
+    Notas notas;
+    
     /**
      * Creates new form CadastrarAluno
      */
     public AlterarNotas() {
         initComponents();
         this.setLocationRelativeTo(null);
+    }
+    
+    public AlterarNotas(GerenciarNotas gerenc, Matricula m1, Aluno a1, Curso c1, Nivel n1, Turma t1, Notas nt){
+        initComponents();
+        this.setLocationRelativeTo(null);
+        
+        gn = gerenc;
+        matricula = new Matricula();
+        aluno = new Aluno();
+        curso = new Curso();
+        nivel = new Nivel();
+        turma = new Turma();
+        notas = new Notas();
+        
+        matricula.clonarMatricula(m1);
+        aluno.clonarAluno(a1);
+        curso.clonarCurso(c1);
+        nivel.clonarNivel(n1);
+        turma.clonarTurma(t1);
+        notas.clonarNotas(nt);
+        
+        jLabel10.setText(aluno.getNome());
+        jLabel11.setText(turma.getNome());
+        jLabel12.setText(nivel.getNome());
+        jLabel13.setText(curso.getNome());
+        
+        jTextField6.setText(""+notas.getNota1());
+        jTextField7.setText(""+notas.getNota2());
+        jTextField8.setText(""+notas.getNota3());
+        jTextField9.setText(""+notas.getNota4());
     }
 
     /**
@@ -38,16 +86,16 @@ public class AlterarNotas extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
         jTextField8 = new javax.swing.JTextField();
         jTextField9 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,97 +132,95 @@ public class AlterarNotas extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setText("     ");
+
+        jLabel11.setText("     ");
+
+        jLabel12.setText("     ");
+
+        jLabel13.setText("     ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel8))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel13))))
+                        .addGap(161, 161, 161)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(jTextField5)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))))
+                            .addComponent(jButton1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jTextField9, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField8, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTextField9, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField8, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(155, 155, 155)
-                .addComponent(jLabel1)
-                .addGap(0, 152, Short.MAX_VALUE))
+                        .addGap(155, 155, 155)
+                        .addComponent(jLabel1)))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel10)
                             .addComponent(jLabel5)
                             .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel11)
                             .addComponent(jLabel7)
                             .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel12)
                             .addComponent(jLabel6)
                             .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel13)
                             .addComponent(jLabel9)
                             .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                        .addGap(0, 37, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
-                            .addComponent(jButton2)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jButton2))))
                 .addContainerGap())
         );
 
@@ -185,14 +231,112 @@ public class AlterarNotas extends javax.swing.JFrame {
         // TODO add your handling code here:
         //MenuPrincipal mp = new MenuPrincipal();
         //mp.setVisible(true);
+        gn.setEnabled(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        dispose();
+        boolean fechar = alterarNotas();
+        if (fechar){
+            gn.setEnabled(true);
+            dispose();
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    public boolean alterarNotas(){
+        try{
+            String campo1 = jTextField6.getText();
+            if (campo1.length() == 0){
+                JOptionPane.showMessageDialog(this,"Insira nota 1","Warning",JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+            String campo2 = jTextField7.getText();
+            if (campo2.length() == 0){
+                JOptionPane.showMessageDialog(this,"Insira nota 2","Warning",JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+            String campo3 = jTextField8.getText();
+            if (campo3.length() == 0){
+                JOptionPane.showMessageDialog(this,"Insira nota 3","Warning",JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+            String campo4 = jTextField9.getText();
+            if (campo4.length() == 0){
+                JOptionPane.showMessageDialog(this,"Insira nota 4","Warning",JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+            
+            double nota1;
+            double nota2;
+            double nota3;
+            double nota4;
+            
+            try{
+                nota1 = Double.parseDouble(campo1);
+                if (nota1 < 0 || nota1 > 10){
+                    JOptionPane.showMessageDialog(this,"Nota 1 inválida, insira um valor entre 0 e 10","Warning",JOptionPane.WARNING_MESSAGE);
+                    return false;
+                }
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(this,"Nota 1 inválida, insira um valor entre 0 e 10","Warning",JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+            
+            try{
+                nota2 = Double.parseDouble(campo2);
+                if (nota2 < 0 || nota2 > 10){
+                    JOptionPane.showMessageDialog(this,"Nota 2 inválida, insira um valor entre 0 e 10","Warning",JOptionPane.WARNING_MESSAGE);
+                    return false;
+                }
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(this,"Nota 2 inválida, insira um valor entre 0 e 10","Warning",JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+            
+            try{
+                nota3 = Double.parseDouble(campo3);
+                if (nota3 < 0 || nota3 > 10){
+                    JOptionPane.showMessageDialog(this,"Nota 3 inválida, insira um valor entre 0 e 10","Warning",JOptionPane.WARNING_MESSAGE);
+                    return false;
+                }
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(this,"Nota 3 inválida, insira um valor entre 0 e 10","Warning",JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+            
+            try{
+                nota4 = Double.parseDouble(campo4);
+                if (nota4 < 0 || nota4 > 10){
+                    JOptionPane.showMessageDialog(this,"Nota 4 inválida, insira um valor entre 0 e 10","Warning",JOptionPane.WARNING_MESSAGE);
+                    return false;
+                }
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(this,"Nota 4 inválida, insira um valor entre 0 e 10","Warning",JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+            
+            notas.setNota1(nota1);
+            notas.setNota2(nota2);
+            notas.setNota3(nota3);
+            notas.setNota4(nota4);
+            
+            ControladorDePersistencia con = new ControladorDePersistencia();
+            boolean suc = con.alteraNotas(notas);
+            if (suc){
+                JOptionPane.showMessageDialog(this,"Notas alteradas com sucesso");
+            }
+        }
+        catch(Exception e){
+            
+        }
+        return true;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -232,6 +376,10 @@ public class AlterarNotas extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -240,10 +388,6 @@ public class AlterarNotas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
